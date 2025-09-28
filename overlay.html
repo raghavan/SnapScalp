@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Selection</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            cursor: crosshair;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .overlay-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .guide-text {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 12px 20px;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border: 2px solid #00e676;
+        }
+
+        .selection-rect {
+            position: absolute;
+            border: 2px solid #00e676;
+            background: rgba(0, 230, 118, 0.15);
+            pointer-events: none;
+            z-index: 999;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-text">
+        Drag to select area. Press Enter to confirm, Escape to cancel.
+    </div>
+    
+    <canvas class="overlay-canvas" id="overlay-canvas"></canvas>
+
+    <script>
+        class AreaSelector {
+            constructor() {
+                this.canvas = document.getElementById('overlay-canvas');
+                this.isSelecting = false;
+                this.startX = 0;
+                this.startY = 0;
+                this.currentRect = null;
+                
+                this.setupCanvas();
+                this.setupEventListeners();
+            }
+
+            setupCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            setupEventListeners() {
+                // Mouse events
+                this.canvas.addEventListener('mousedown', (e) => this.startSelection(e));
+                this.canvas.addEventListener('mousemove', (e) => this.updateSelection(e));
+                this.canvas.addEventListener('mouseup', (e) => this.endSelection(e));
+
+                // Keyboard events
+                document.addEventListener('keydown', (e) => this.handleKeydown(e));
+
+                // Prevent context menu
+                document.addEventListener('contextmenu', (e) => e.preventDefault());
+            }
+
+            startSelection(e) {
+                this.isSelecting = true;
+                this.startX = e.clientX;
+                this.startY = e.clientY;
+                
+                // Remove existing selection
+                if (this.currentRect) {
+                    this.currentRect.remove();
+                }
+                
+                // Create new selection rectangle
+                this.currentRect = document.createElement('div');
+                this.currentRect.className = 'selection-rect';
+                this.currentRect.style.left = this.startX + 'px';
+                this.currentRect.style.top = this.startY + 'px';
+                this.currentRect.style.width = '1px';
+                this.currentRect.style.height = '1px';
+                
+                document.body.appendChild(this.currentRect);
+            }
+
+            updateSelection(e) {
+                if (!this.isSelecting || !this.currentRect) return;
+
+                const currentX = e.clientX;
+                const currentY = e.clientY;
+
+                const left = Math.min(this.startX, currentX);
+                const top = Math.min(this.startY, currentY);
+                const width = Math.abs(currentX - this.startX);
+                const height = Math.abs(currentY - this.startY);
+
+                this.currentRect.style.left = left + 'px';
+                this.currentRect.style.top = top + 'px';
+                this.currentRect.style.width = width + 'px';
+                this.currentRect.style.height = height + 'px';
+            }
+
+            endSelection(e) {
+                if (!this.isSelecting) return;
+                
+                this.isSelecting = false;
+                this.confirmSelection();
+            }
+
+            handleKeydown(e) {
+                if (e.key === 'Escape') {
+                    this.cancelSelection();
+                } else if (e.key === 'Enter') {
+                    this.confirmSelection();
+                }
+            }
+
+            confirmSelection() {
+                if (!this.currentRect) {
+                    this.cancelSelection();
+                    return;
+                }
+
+                const rect = this.currentRect.getBoundingClientRect();
+                
+                // Check minimum size
+                if (rect.width < 20 || rect.height < 20) {
+                    alert('Selection too small. Please select a larger area.');
+                    return;
+                }
+
+                // Convert overlay coordinates to screen coordinates
+                // The overlay window is positioned at the primary display bounds
+                const area = {
+                    x: rect.left + window.screenX,
+                    y: rect.top + window.screenY,
+                    width: rect.width,
+                    height: rect.height
+                };
+
+                // Send selection to main process
+                window.electronAPI.areaSelected(area);
+            }
+
+            cancelSelection() {
+                // Send cancellation to main process
+                window.electronAPI.areaCancelled();
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new AreaSelector();
+        });
+    </script>
+</body>
+</html>

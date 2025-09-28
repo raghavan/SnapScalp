@@ -1,0 +1,343 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    overflow: hidden;
+}
+
+.app-container {
+    padding: 10px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Controls Section */
+.controls-section {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 8px;
+}
+
+/* LLM Provider Section */
+.llm-provider-section {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #e0e0e0; 
+    margin-bottom: 8px;
+}
+
+.provider-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.provider-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.provider-select {
+    padding: 2px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.provider-select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.provider-status {
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+.provider-status.connected {
+    color: #28a745;
+}
+
+.provider-status.error {
+    color: #dc3545;
+}
+
+.provider-status.warning {
+    color: #ffc107;
+}
+
+.btn {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #f8f9fa;
+    cursor: pointer;
+    font-size: 12px;
+    min-width: 80px;
+    transition: all 0.2s;
+}
+
+.btn:hover:not(:disabled) {
+    background: #e9ecef;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #1e7e34;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #c82333;
+}
+
+.status-container {
+    margin-left: auto;
+}
+
+.status-text {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Decision Banner */
+.decision-banner {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.decision-banner.long {
+    background: #dff6e3;
+    border-color: #0b8f2f;
+}
+
+.decision-banner.short {
+    background: #ffe3e6;
+    border-color: #b00020;
+}
+
+.decision-banner.wait {
+    background: #f1f5f9;
+    border-color: #374151;
+}
+
+.decision-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.decision-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #374151;
+}
+
+.decision-banner.long .decision-text,
+.decision-banner.long .confidence-label,
+.decision-banner.long .confidence-value,
+.decision-banner.long .reason-text {
+    color: #0b8f2f;
+}
+
+.decision-banner.short .decision-text,
+.decision-banner.short .confidence-label,
+.decision-banner.short .confidence-value,
+.decision-banner.short .reason-text {
+    color: #b00020;
+}
+
+.confidence-section {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.confidence-label {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.confidence-value {
+    font-size: 12px;
+}
+
+.reason-section {
+    flex: 1;
+}
+
+.reason-text {
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
+/* Scenarios Table */
+.scenarios-section {
+    flex: 1;
+    overflow: auto;
+}
+
+.scenarios-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.scenarios-table th {
+    background: #f8f9fa;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.scenarios-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    height: 28px;
+}
+
+.scenarios-table tr.long {
+    background: #ecfdf5;
+}
+
+.scenarios-table tr.short {
+    background: #fff1f2;
+}
+
+.scenarios-table tr:hover {
+    background: #e6f2ff;
+}
+
+/* Bottom Section */
+.bottom-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+}
+
+.levels-section {
+    display: flex;
+    gap: 8px;
+}
+
+.level-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.support-badge {
+    background: #2e7d32;
+}
+
+.resistance-badge {
+    background: #c62828;
+}
+
+.preview-section {
+    display: flex;
+    align-items: center;
+}
+
+.preview-image {
+    max-width: 160px;
+    max-height: 90px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Zoom classes */
+.zoom-1 .decision-text { font-size: 17px; }
+.zoom-1 .confidence-label, .zoom-1 .confidence-value, .zoom-1 .reason-text { font-size: 11px; }
+.zoom-1 .scenarios-table { font-size: 12px; }
+.zoom-1 .scenarios-table th { font-size: 11px; }
+.zoom-1 .scenarios-table td { height: 26px; }
+
+.zoom0 .decision-text { font-size: 18px; }
+.zoom0 .confidence-label, .zoom0 .confidence-value, .zoom0 .reason-text { font-size: 12px; }
+.zoom0 .scenarios-table { font-size: 13px; }
+.zoom0 .scenarios-table th { font-size: 12px; }
+.zoom0 .scenarios-table td { height: 28px; }
+
+.zoom1 .decision-text { font-size: 19px; }
+.zoom1 .confidence-label, .zoom1 .confidence-value, .zoom1 .reason-text { font-size: 13px; }
+.zoom1 .scenarios-table { font-size: 14px; }
+.zoom1 .scenarios-table th { font-size: 13px; }
+.zoom1 .scenarios-table td { height: 30px; }
+
+.zoom2 .decision-text { font-size: 20px; }
+.zoom2 .confidence-label, .zoom2 .confidence-value, .zoom2 .reason-text { font-size: 14px; }
+.zoom2 .scenarios-table { font-size: 15px; }
+.zoom2 .scenarios-table th { font-size: 14px; }
+.zoom2 .scenarios-table td { height: 32px; }
+
+.zoom3 .decision-text { font-size: 21px; }
+.zoom3 .confidence-label, .zoom3 .confidence-value, .zoom3 .reason-text { font-size: 15px; }
+.zoom3 .scenarios-table { font-size: 16px; }
+.zoom3 .scenarios-table th { font-size: 15px; }
+.zoom3 .scenarios-table td { height: 34px; }
+
+.zoom4 .decision-text { font-size: 22px; }
+.zoom4 .confidence-label, .zoom4 .confidence-value, .zoom4 .reason-text { font-size: 16px; }
+.zoom4 .scenarios-table { font-size: 17px; }
+.zoom4 .scenarios-table th { font-size: 16px; }
+.zoom4 .scenarios-table td { height: 36px; }
+
+/* Flash animation for decision updates */
+@keyframes flash {
+    0% { color: inherit; }
+    50% { color: #000000; }
+    100% { color: inherit; }
+}
+
+.decision-flash {
+    animation: flash 0.12s ease-in-out;
+}

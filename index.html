@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapScalp</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <button id="btn-set-area" class="btn btn-primary">Set Area</button>
+            <button id="btn-start" class="btn btn-success">Start</button>
+            <button id="btn-stop" class="btn btn-danger" disabled>Stop</button>
+            <div class="status-container">
+                <span id="status-label" class="status-text">Ready</span>
+            </div>
+        </div>
+
+        <!-- LLM Provider Section -->
+        <div class="llm-provider-section">
+            <div class="provider-info">
+                <span class="provider-label">LLM:</span>
+                <select id="llm-provider-select" class="provider-select">
+                    <option value="openai">OpenAI (Default)</option>
+                    <option value="claude">Claude</option>
+                    <option value="perplexity" disabled>Perplexity(Coming soon!)</option>
+                </select>
+                <span id="provider-status" class="provider-status">●</span>
+            </div>
+        </div>
+
+        <!-- Decision Banner -->
+        <div id="decision-banner" class="decision-banner">
+            <div class="decision-content">
+                <div class="decision-main">
+                    <span id="decision-text" class="decision-text">WAIT</span>
+                </div>
+                <div class="confidence-section">
+                    <span class="confidence-label">CONFIDENCE</span>
+                    <span id="confidence-value" class="confidence-value">—</span>
+                </div>
+                <div class="reason-section">
+                    <span id="reason-text" class="reason-text">No analysis yet</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenarios Table -->
+        <div class="scenarios-section">
+            <table id="scenarios-table" class="scenarios-table">
+                <thead>
+                    <tr>
+                        <th>Side</th>
+                        <th>Entry</th>
+                        <th>Stop Loss</th>
+                        <th>Take Profit 1</th>
+                        <th>Take Profit 2</th>
+                        <th>Take Profit 3</th>
+                    </tr>
+                </thead>
+                <tbody id="scenarios-tbody">
+                    <!-- Scenarios will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Bottom Section: Preview -->
+        <div class="bottom-section">
+            <div class="preview-section">
+                <img id="preview-image" class="preview-image" alt="Preview" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

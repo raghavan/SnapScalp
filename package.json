@@ -1,0 +1,57 @@
+{
+  "name": "snapscalp-electron",
+  "version": "1.0.0",
+  "description": "SnapScalp - Trade Overlay Analysis Tool",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never"
+  },
+  "keywords": [
+    "trading",
+    "analysis",
+    "scalping",
+    "overlay"
+  ],
+  "author": "TradeOverlay",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "@langchain/anthropic": "^0.3.28",
+    "@langchain/core": "^0.3.77",
+    "@langchain/openai": "^0.6.13",
+    "axios": "^1.5.0",
+    "dotenv": "^16.3.1",
+    "langchain": "^0.3.34",
+    "screenshot-desktop": "^1.15.0",
+    "sharp": "^0.34.4"
+  },
+  "build": {
+    "appId": "com.tradeoverlay.snapscalp",
+    "productName": "SnapScalp",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "renderer.js",
+      "index.html",
+      "styles.css",
+      "preload.js"
+    ],
+    "mac": {
+      "category": "public.app-category.finance"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
