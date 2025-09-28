@@ -10,6 +10,7 @@ AI-powered desktop overlay tool that analyzes trading charts in real-time and pr
 - **Multiple AI Providers**: Switch between OpenAI, Claude, and Perplexity APIs
 - **Always-on-Top Overlay**: Stays visible while you trade on other platforms
 
+## Architecture
 <img width="10639" height="5629" alt="snapscalp" src="https://github.com/user-attachments/assets/f02757d9-9692-4e54-8520-54b6034c5430" />
 
 
@@ -57,6 +58,11 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## Demo
+[![Watch the video](https://img.youtube.com/vi/95peqKN5XF8/0.jpg)](https://youtu.be/95peqKN5XF8)
+
+
 
 ## License
 
